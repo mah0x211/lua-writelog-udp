@@ -63,6 +63,11 @@ local function close( ctx )
 end
 
 
+local function getfd( ctx )
+    return ctx.sock:fd();
+end
+
+
 --- new
 -- @param lv
 -- @param ctx
@@ -101,6 +106,7 @@ local function new( lv, ctx, opts )
         ctx.sock:nonblock( true );
     end
 
+    ctx.getfd = getfd;
     ctx.close = close;
 
     return writelog.create( ctx, lv, sendfn, formatter );
